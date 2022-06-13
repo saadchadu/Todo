@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0 !important;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+a {
+    text-decoration: none !important;
+
+}
+
+.container {
+    height: 100vh;
+    width: 100%;
+    padding: 0 10%;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(rgb(135, 224, 246), rgb(209, 169, 228));
+
+}
+
+.kitchen {
+    width: 600px;
+    height: auto;
+    display: flex;
+    padding-top: 5%;
+    flex-direction: column;
+
+}
+
+.kitchen-title {
+    text-align: center;
+    padding-bottom: 4%;
+}
+
+.kitchen-controls {
+    width: 100%;
+}
+
+.kitchen-controls input {
+    padding: 15px;
+    width: 75%;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+input:focus-visible {
+    outline: none !important;
+    border: none !important;
+}
+
+input:focus {
+    outline: none !important;
+    border: none !important;
+}
+
+.kitchen-controls button {
+    padding: 15px;
+    width: 24%;
+    border: none;
+    border-radius: 5px;
+    background-color: #278e5f;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.kitchen-controls button:hover {
+    background-color: #0f8a53;
+}
+
+.kitchen-itmes-list {
+    padding: 0;
+}
+
+.kitchen-itmes-list li {
+    list-style: none;
+    font-size: 20px;
+    padding: 15px 20px;
+    text-align: left;
+    background-color: #275d8e;
+    color: white;
+    margin: 15px 0 !important;
+    border-radius: 5px;
+    animation: 0.3s ease-in-out;
+    animation-name: slideIn;
+    display: flex;
+    justify-content: space-between;
+}
+
+.fa-trash{
+    margin-left: auto !important;
+    margin-right: 15px !important;
+}
+
+.fa-trash:hover {
+    color: #ff4646;
+}
+
+.fa-edit:hover {
+    color: #46d4ff;
+}
+
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: rotateX(60deg) translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: rotateX(0deg) translateY(0px);
+    }
+}
+
+.slide-out {
+    transform: rotateX(60deg) translateY(-10px);
+    opacity: 0;
+    transition: 1s;
+}
