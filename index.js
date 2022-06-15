@@ -1,14 +1,23 @@
-
-
 let kitchenInput = document.getElementById("kitchen-input");
 let addBtn = document.getElementById("add-btn");
 let kitchenItemsList = document.getElementById("kitchen-itmes-list");
 
-function addKitchenItem() {
-  let kitchenInputdata = kitchenInput.value;
+let kitchenInputdata;
+
+function setLocalStorage() {
+  localStorage.setItem("kitchenInput", kitchenInputdata);
+}
+function getLocalStorage() {
+  if (localStorage.getItem("kitchenInput")){
+    kitchenInputdata = localStorage.getItem("kitchenInput");
+    buildUi();
+  } 
+}
+
+function buildUi(){
   let li = document.createElement("li");
   spanEl = document.createElement("span");
-  li.appendChild( spanEl );
+  li.appendChild(spanEl);
   spanEl.innerText = kitchenInputdata;
   kitchenItemsList.appendChild(li);
   kitchenInput.value = "";
@@ -19,11 +28,18 @@ function addKitchenItem() {
   li.appendChild(trashBtn);
 
   let editBtn = document.createElement("i");
-  editBtn.classList.add('fas', 'fa-edit');
+  editBtn.classList.add("fas", "fa-edit");
   li.appendChild(editBtn);
 }
 
+function addKitchenItem() {
+  kitchenInputdata = kitchenInput.value;
 
+  setLocalStorage();
+  getLocalStorage();
+
+  
+}
 
 window.addEventListener("keydown", (event) => {
   if (event.code === "Enter") {
@@ -31,21 +47,18 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-
 function deleteKitchenItem(event) {
-  if(event.target.classList[1]==="fa-trash"){
+  if (event.target.classList[1] === "fa-trash") {
     let item = event.target.parentElement;
     item.classList.add("slide-out");
-    item.addEventListener("transitionend", function(){
+    item.addEventListener("transitionend", function () {
       item.remove();
-    })
-    
+    });
   }
 }
 
-
 function editKitchenItem(event) {
-  if(event.target.classList[1] ==="fa-edit"){
+  if (event.target.classList[1] === "fa-edit") {
     let editedValue = prompt("Enter new value");
     let item = event.target.parentElement;
     let spanEl = item.querySelector("span");
@@ -56,6 +69,4 @@ function editKitchenItem(event) {
 addBtn.addEventListener("click", addKitchenItem);
 kitchenItemsList.addEventListener("click", deleteKitchenItem);
 kitchenItemsList.addEventListener("click", editKitchenItem);
-
-
-
+getLocalStorage();
