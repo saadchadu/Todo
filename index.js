@@ -2,43 +2,47 @@ let kitchenInput = document.getElementById("kitchen-input");
 let addBtn = document.getElementById("add-btn");
 let kitchenItemsList = document.getElementById("kitchen-itmes-list");
 
-let kitchenInputdata;
+let kitchenInputData;
+let kitchenInputDataArray = [];
 
 function setLocalStorage() {
-  localStorage.setItem("kitchenInput", kitchenInputdata);
+  localStorage.setItem("kitchenInput", JSON.stringify(kitchenInputDataArray));
 }
 function getLocalStorage() {
-  if (localStorage.getItem("kitchenInput")){
-    kitchenInputdata = localStorage.getItem("kitchenInput");
+  if (localStorage.getItem("kitchenInput")) {
+    kitchenInputDataArray = JSON.parse(localStorage.getItem("kitchenInput"));
     buildUi();
-  } 
+  }
 }
 
-function buildUi(){
-  let li = document.createElement("li");
-  spanEl = document.createElement("span");
-  li.appendChild(spanEl);
-  spanEl.innerText = kitchenInputdata;
-  kitchenItemsList.appendChild(li);
-  kitchenInput.value = "";
-  kitchenInput.focus();
+function buildUi() {
+  kitchenItemsList.textContent = "";
+  kitchenInputDataArray.forEach((item) => {
+    let li = document.createElement("li");
+    spanEl = document.createElement("span");
+    li.appendChild(spanEl);
+    spanEl.innerText = item;
+    kitchenItemsList.appendChild(li);
+    kitchenInput.value = "";
+    kitchenInput.focus();
 
-  let trashBtn = document.createElement("i");
-  trashBtn.classList.add("fas", "fa-trash");
-  li.appendChild(trashBtn);
+    let trashBtn = document.createElement("i");
+    trashBtn.classList.add("fas", "fa-trash");
+    li.appendChild(trashBtn);
 
-  let editBtn = document.createElement("i");
-  editBtn.classList.add("fas", "fa-edit");
-  li.appendChild(editBtn);
+    let editBtn = document.createElement("i");
+    editBtn.classList.add("fas", "fa-edit");
+    li.appendChild(editBtn);
+  });
 }
 
 function addKitchenItem() {
-  kitchenInputdata = kitchenInput.value;
+  kitchenInputData = kitchenInput.value;
+
+  kitchenInputDataArray.push(kitchenInputData);
 
   setLocalStorage();
   getLocalStorage();
-
-  
 }
 
 window.addEventListener("keydown", (event) => {
@@ -52,7 +56,7 @@ function deleteKitchenItem(event) {
     let item = event.target.parentElement;
     item.classList.add("slide-out");
     item.addEventListener("transitionend", function () {
-      item.remove();
+      window.localStorage.removeItem(item);
     });
   }
 }
@@ -70,3 +74,6 @@ addBtn.addEventListener("click", addKitchenItem);
 kitchenItemsList.addEventListener("click", deleteKitchenItem);
 kitchenItemsList.addEventListener("click", editKitchenItem);
 getLocalStorage();
+
+
+
